@@ -1,3 +1,91 @@
 {
-  "extends": "next/core-web-vitals"
+  "parser": "@typescript-eslint/parser",
+  "plugins": [
+    "@typescript-eslint",
+    "simple-import-sort",
+    "check-file",
+    "prettier"
+  ],
+  "extends": [
+    "airbnb",
+    "airbnb-typescript",
+    "airbnb/hooks",
+    "next/core-web-vitals",
+    "prettier"
+  ],
+  "parserOptions": {
+    "jsx": true,
+    "ecmaVersion": 2021,
+    "tsconfigRootDir": "./",
+    "project": "./tsconfig.json",
+    "parser": "@typescript-eslint/parser"
+  },
+  "rules": {
+    "prettier/prettier": [
+      "error",
+      {
+        "endOfLine": "auto"
+      }
+    ],
+    "default-case": "off",
+    "brace-style": "off",
+    "@typescript-eslint/brace-style": "off",
+    "no-underscore-dangle": "off",
+    "no-plusplus": "off",
+    "jsx-a11y/no-static-element-interactions": "off",
+    "jsx-a11y/click-events-have-key-events": "off",
+    "jsx-a11y/media-has-caption": "off",
+    "no-param-reassign": ["error", { "props": false }],
+    "react/react-in-jsx-scope": "off",
+    "@next/next/no-html-link-for-pages": "off",
+    "@typescript-eslint/no-explicit-any": "off",
+    "react/jsx-props-no-spreading": [0],
+    "react/no-array-index-key": [0],
+    "react/prop-types": "off",
+    "react/require-default-props": "off",
+    "react/function-component-definition": [0],
+    "consistent-return": "off",
+    "jsx-a11y/anchor-is-valid": [
+      "error",
+      {
+        "components": ["Link"],
+        "specialLink": ["hrefLeft", "hrefRight"],
+        "aspects": ["invalidHref", "preferButton"]
+      }
+    ],
+    "simple-import-sort/imports": 1,
+    "simple-import-sort/exports": 1,
+    "check-file/filename-naming-convention": [
+      "error",
+      {
+        "**/{i,I}ndex.ts": "CAMEL_CASE"
+      }
+    ]
+  },
+  "overrides": [
+    {
+      "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
+      "rules": {
+        "simple-import-sort/imports": [
+          1,
+          {
+            "groups": [
+              ["^react", "^(next|swr|axios)", "^@mui", "^@?\\w"],
+              ["^(@|components)(/.*|$)"],
+              ["^\\u0000"],
+              ["^\\.\\.(?!/?$)", "^\\.\\./?$"],
+              ["^\\./(?=.*/)(?!/?$)", "^\\.(?!/?$)", "^\\./?$"],
+              ["^.+\\.?(css)$"]
+            ]
+          }
+        ],
+        "no-console": [
+          "error",
+          {
+            "allow": ["warn", "error"]
+          }
+        ]
+      }
+    }
+  ]
 }
