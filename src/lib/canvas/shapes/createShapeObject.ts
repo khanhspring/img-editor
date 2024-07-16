@@ -1,7 +1,7 @@
 import ShapeUtils from './shapeUtils';
 import {
   XCircleOptions,
-  XObject,
+  XFreeShapeOptions,
   XPolygonOptions,
   XRectOptions,
   XShapeOptions,
@@ -11,48 +11,73 @@ import {
 import XCircle from './XCircle';
 import XPolygon from './XPolygon';
 import XRect from './XRect';
+import XShape from './XShape';
 import XStar from './XStar';
 import XTriangle from './XTriangle';
 
-export function createRect({ border, ...rest }: XRectOptions): XRect {
+function createRect({ border, position, ...rest }: XRectOptions): XRect {
   return new XRect({
     ...ShapeUtils.toXShapeOptions(border),
+    ...position,
     ...rest,
   });
 }
 
-export function createTriangle({
+function createTriangle({
   border,
+  position,
   ...rest
 }: XTriangleOptions): XTriangle {
   return new XTriangle({
     ...ShapeUtils.toXShapeOptions(border),
+    ...position,
     ...rest,
   });
 }
 
-export function createCircle({ border, ...rest }: XCircleOptions): XCircle {
+function createCircle({ border, position, ...rest }: XCircleOptions): XCircle {
   return new XCircle({
     ...ShapeUtils.toXShapeOptions(border),
+    ...position,
     ...rest,
   });
 }
 
-export function createStar({ border, ...rest }: XStarOptions): XStar {
+function createStar({ border, position, ...rest }: XStarOptions): XStar {
+  console.log(border, ShapeUtils.toXShapeOptions(border));
   return new XStar({
     ...ShapeUtils.toXShapeOptions(border),
+    ...position,
     ...rest,
   });
 }
 
-export function createPolygon({ border, ...rest }: XPolygonOptions): XPolygon {
+function createPolygon({
+  border,
+  position,
+  ...rest
+}: XPolygonOptions): XPolygon {
   return new XPolygon({
     ...ShapeUtils.toXShapeOptions(border),
+    ...position,
     ...rest,
   });
 }
 
-export default function createShape(options: XShapeOptions): XObject {
+function createFreeShape({
+  border,
+  position,
+  points,
+  ...rest
+}: XFreeShapeOptions): XShape {
+  return new XShape(points, {
+    ...ShapeUtils.toXShapeOptions(border),
+    ...position,
+    ...rest,
+  });
+}
+
+export default function createShapeObject(options: XShapeOptions) {
   switch (options.type) {
     case 'rect':
       return createRect(options);
@@ -62,7 +87,9 @@ export default function createShape(options: XShapeOptions): XObject {
       return createCircle(options);
     case 'polygon':
       return createPolygon(options);
-    case 'start':
+    case 'star':
       return createStar(options);
+    case 'free':
+      return createFreeShape(options);
   }
 }

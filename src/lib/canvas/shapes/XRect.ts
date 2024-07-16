@@ -23,24 +23,26 @@ export default class XRect<
     };
   }
 
-  constructor(options?: Props) {
-    const points = XRect.generatePoints(
-      options?.width || XRect.ownDefaults.width!,
-      options?.height || XRect.ownDefaults.height!,
-    );
+  constructor({
+    width = XRect.ownDefaults.width!,
+    height = XRect.ownDefaults.height!,
+    ...options
+  }: Props) {
+    const points = XRect.generatePoints(width, height);
     super(points, options);
-    Object.assign(this, XRect.ownDefaults);
   }
 
   private static generatePoints(w: number, h: number) {
-    const x = -w / 2;
-    const y = -h / 2;
+    const x = -w;
+    const y = -h;
     const points = [
-      { x: -x, y },
+      { x, y },
       { x: x + w, y },
       { x: x + w, y: y + h },
-      { x, y },
+      { x, y: y + h },
     ];
+
+    console.log(points);
 
     return points;
   }

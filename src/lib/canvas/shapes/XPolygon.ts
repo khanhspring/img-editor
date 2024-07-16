@@ -51,7 +51,8 @@ export default class XPolygon<
       sides,
       size,
     );
-    super(points, options);
+    const rotateAngle = XPolygon.getRotateAngle(sides);
+    super(points, { ...options, rotateAngle });
     Object.assign(this, XPolygon.ownDefaults);
     this.size = size;
     this.sides = sides;
@@ -65,15 +66,24 @@ export default class XPolygon<
     const { x: cx, y: cy } = center;
 
     const points = [];
-    points.push({ x: cx + size * Math.cos(0), y: cy + size * Math.sin(0) });
     for (let i = 1; i <= sides; i += 1) {
-      points.push({
+      const point = {
         x: cx + size * Math.cos((i * 2 * Math.PI) / sides),
         y: cy + size * Math.sin((i * 2 * Math.PI) / sides),
-      });
+      };
+
+      points.push(point);
     }
 
     return points;
+  }
+
+  private static getRotateAngle(sides: number) {
+    let rotateAngle = 0;
+    if (sides % 2 === 1) {
+      rotateAngle = Math.PI / 2 - (Math.PI / sides) * (sides % 4);
+    }
+    return rotateAngle;
   }
 }
 

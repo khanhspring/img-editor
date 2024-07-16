@@ -27,6 +27,7 @@
         "endOfLine": "auto"
       }
     ],
+    "import/prefer-default-export": "off",
     "default-case": "off",
     "brace-style": "off",
     "@typescript-eslint/brace-style": "off",

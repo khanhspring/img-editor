@@ -58,7 +58,6 @@ export default class XStar<
       innerRadius,
     );
     super(points, options);
-    Object.assign(this, XStar.ownDefaults);
     this.outerRadius = outerRadius;
     this.innerRadius = innerRadius;
     this.sides = sides;

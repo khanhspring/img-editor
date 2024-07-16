@@ -1,12 +1,16 @@
 import * as fabric from 'fabric';
+
 import { XObject } from './types';
+import { XYR } from '@/types/common/editor';
 
 export const xShapeDefaultValues: Partial<fabric.TClassProperties<XShape>> = {
   borderRadius: 0,
+  rotateAngle: 0,
 };
 
 export interface UniqueXShapeProps {
   borderRadius?: number;
+  rotateAngle?: number;
 }
 
 export interface XShapeProps
@@ -23,6 +27,8 @@ export default class XShape<
 
   declare borderRadius: number;
 
+  declare rotateAngle: number;
+
   static ownDefaults = xShapeDefaultValues;
 
   static getDefaults(): Record<string, any> {
@@ -35,18 +41,20 @@ export default class XShape<
   static cacheProperties = [
     ...fabric.FabricObject.cacheProperties,
     'borderRadius',
+    'rotateAngle',
   ];
 
   constructor(
-    points: fabric.XY[] = [],
+    points: XYR[] = [],
     {
       borderRadius = XShape.ownDefaults.borderRadius!,
+      rotateAngle = XShape.ownDefaults.rotateAngle!,
       ...options
     }: Props = {} as Props,
   ) {
-    super(points, options);
-    Object.assign(this, XShape.ownDefaults);
+    super(XShape.rotatePoints(points, rotateAngle), options);
     this.borderRadius = borderRadius;
+    this.rotateAngle = rotateAngle;
   }
 
   public _render(ctx: CanvasRenderingContext2D) {
@@ -60,9 +68,22 @@ export default class XShape<
     this._renderPaintInOrder(ctx);
   }
 
+  private static rotatePoints(points: XYR[], angle: number) {
+    if (angle === 0) return points;
+    return points.map((p) => this.rotatePoint(p, angle));
+  }
+
+  private static rotatePoint(point: XYR, angle: number) {
+    if (angle === 0) return point;
+
+    const newX = point.x * Math.cos(angle) - point.y * Math.sin(angle);
+    const newY = point.x * Math.sin(angle) + point.y * Math.cos(angle);
+    return { x: newX, y: newY, r: point.r };
+  }
+
   private roundedPoly(
     ctx: CanvasRenderingContext2D,
-    points: { x: number; y: number; radius?: number }[],
+    points: { x: number; y: number; r?: number }[],
     radiusAll: number,
   ) {
     // Helper function to calculate vector information
@@ -115,8 +136,8 @@ export default class XShape<
         angle = Math.PI * 2 + angle;
       }
 
-      if (p2.radius !== undefined) {
-        radius = p2.radius;
+      if (p2.r !== undefined) {
+        radius = p2.r;
       } else {
         radius = radiusAll;
       }

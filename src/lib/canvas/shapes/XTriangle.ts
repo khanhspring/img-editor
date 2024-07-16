@@ -25,13 +25,13 @@ export default class XTriangle<
     };
   }
 
-  constructor(options?: Props) {
-    const points = XTriangle.generatePoints(
-      options?.width || XTriangle.ownDefaults.width!,
-      options?.height || XTriangle.ownDefaults.height!,
-    );
+  constructor({
+    width = XTriangle.ownDefaults.width!,
+    height = XTriangle.ownDefaults.height!,
+    ...options
+  }: Props) {
+    const points = XTriangle.generatePoints(width, height);
     super(points, options);
-    Object.assign(this, XTriangle.ownDefaults);
   }
 
   private static generatePoints(width: number, height: number) {
