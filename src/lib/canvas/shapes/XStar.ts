@@ -3,14 +3,13 @@ import * as fabric from 'fabric';
 import XShape, { XShapeProps } from './XShape';
 
 export const xStarDefaultValues: Partial<fabric.TClassProperties<XStar>> = {
-  outerRadius: 50,
-  innerRadius: 40,
+  width: 100,
+  ratio: 0.5,
   sides: 5,
 };
 
 export interface UniqueXStarProps {
-  outerRadius?: number;
-  innerRadius?: number;
+  ratio?: number;
   sides?: number;
 }
 
@@ -21,9 +20,7 @@ export default class XStar<
 > extends XShape {
   static type = 'XStar';
 
-  declare outerRadius: number;
-
-  declare innerRadius: number;
+  declare ratio: number;
 
   declare sides: number;
 
@@ -38,19 +35,20 @@ export default class XStar<
 
   static cacheProperties = [
     ...fabric.FabricObject.cacheProperties,
-    'outerRadius',
-    'innerRadius',
+    'ratio',
     'sides',
   ];
 
   constructor(
     {
-      outerRadius = XStar.ownDefaults.outerRadius!,
-      innerRadius = XStar.ownDefaults.innerRadius!,
+      width = XStar.ownDefaults.width!,
+      ratio = XStar.ownDefaults.ratio!,
       sides = XStar.ownDefaults.sides!,
       ...options
     }: Props = {} as Props,
   ) {
+    const outerRadius = width / 2;
+    const innerRadius = outerRadius * ratio;
     const points = XStar.generatePoints(
       new fabric.Point({ x: 0, y: 0 }),
       sides,
@@ -58,8 +56,8 @@ export default class XStar<
       innerRadius,
     );
     super(points, options);
-    this.outerRadius = outerRadius;
-    this.innerRadius = innerRadius;
+    this.width = width;
+    this.ratio = ratio;
     this.sides = sides;
   }
 

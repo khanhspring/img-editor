@@ -8,7 +8,7 @@ export default function useCanvas() {
 
   useEffect(() => {
     if (!canvasRef.current || !containerRef.current) return;
-
+    console.time('init');
     const initCanvas = new fabric.Canvas(canvasRef.current, {
       controlsAboveOverlay: true,
       preserveObjectStacking: true,
@@ -45,6 +45,7 @@ export default function useCanvas() {
     initCanvas.clipPath = initialWorkspace;
     setCanvas(initCanvas);
 
+    console.timeEnd('init');
     return () => {
       initCanvas.dispose();
     };

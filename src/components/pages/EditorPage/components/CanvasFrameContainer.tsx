@@ -1,6 +1,6 @@
 import { DragEvent, forwardRef, ReactNode } from 'react';
 
-import { ImplementedShapeType } from '@/types/enums';
+import { ShapeType } from '@/types/enums';
 
 import useEditorContext from '../hooks/useEditorContext';
 
@@ -29,7 +29,7 @@ const CanvasFrameContainer = forwardRef<HTMLDivElement, Props>((props, ref) => {
 
     const left = (scenePoint?.x || 0) - position.x;
     const top = (scenePoint?.y || 0) - position.y;
-    const type = e.dataTransfer.getData('shape-type') as ImplementedShapeType;
+    const type = e.dataTransfer.getData('shape-type') as ShapeType;
 
     drawShape(type, { top, left });
   };

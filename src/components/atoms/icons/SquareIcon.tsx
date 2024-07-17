@@ -8,16 +8,8 @@ export default function SquareIcon({ ...rest }) {
       xmlns="http://www.w3.org/2000/svg"
       {...rest}
     >
-      <rect
-        x="7"
-        y="7"
-        width="575.021"
-        height="574"
-        rx="69"
-        fill="#E681FF"
-        stroke="#3B0F46"
-        stroke-width="14"
-      />
+      <path d="M0 0H589.021V588H0V0Z" fill="#8D83FF" />
+      <path d="M0 0H589.021V588H0V0Z" stroke="#3B0F46" />
     </svg>
   );
 }

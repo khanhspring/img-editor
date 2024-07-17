@@ -4,12 +4,11 @@ import XShape, { XShapeProps } from './XShape';
 
 export const xPolygonDefaultValues: Partial<fabric.TClassProperties<XPolygon>> =
   {
-    size: 50,
+    width: 100,
     sides: 5,
   };
 
 export interface UniqueXPolygonProps {
-  size?: number;
   sides?: number;
 }
 
@@ -19,8 +18,6 @@ export default class XPolygon<
   Props extends fabric.TOptions<XPolygonProps> = Partial<XPolygonProps>,
 > extends XShape {
   static type = 'XPolygon';
-
-  declare size: number;
 
   declare sides: number;
 
@@ -33,15 +30,11 @@ export default class XPolygon<
     };
   }
 
-  static cacheProperties = [
-    ...fabric.FabricObject.cacheProperties,
-    'size',
-    'sides',
-  ];
+  static cacheProperties = [...fabric.FabricObject.cacheProperties, 'sides'];
 
   constructor(
     {
-      size = XPolygon.ownDefaults.size!,
+      width = XPolygon.ownDefaults.width!,
       sides = XPolygon.ownDefaults.sides!,
       ...options
     }: Props = {} as Props,
@@ -49,12 +42,12 @@ export default class XPolygon<
     const points = XPolygon.generatePoints(
       new fabric.Point({ x: 0, y: 0 }),
       sides,
-      size,
+      width / 2,
     );
     const rotateAngle = XPolygon.getRotateAngle(sides);
     super(points, { ...options, rotateAngle });
     Object.assign(this, XPolygon.ownDefaults);
-    this.size = size;
+    this.width = width;
     this.sides = sides;
   }
 

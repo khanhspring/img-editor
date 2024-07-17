@@ -1,11 +1,11 @@
 import { ReactNode, useCallback, useMemo } from 'react';
-import { Canvas } from 'fabric';
+import { Canvas, Group } from 'fabric';
 
-import { ImplementedShapeType } from '@/types/enums';
+import { ShapeType } from '@/types/enums';
 
 import { EditorContext } from '../context/editorContext';
 import { EditorContextValue, ShapeDrawPosition } from '../types';
-import { drawShape as drawShapeFn } from '../utils/drawShape';
+import { renderShape } from '../utils/renderShape';
 
 type Props = {
   children: ReactNode;
@@ -14,9 +14,11 @@ type Props = {
 
 export default function EditorProvider({ canvas, children }: Props) {
   const drawShape = useCallback(
-    (type: ImplementedShapeType, position: ShapeDrawPosition) => {
+    (type: ShapeType, position: ShapeDrawPosition) => {
       if (!canvas) return;
-      drawShapeFn(canvas, type, position);
+      const shape = renderShape(type, position);
+      canvas.add(shape);
+      canvas.renderAll();
     },
     [canvas],
   );

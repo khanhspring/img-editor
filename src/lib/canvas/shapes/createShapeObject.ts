@@ -44,7 +44,6 @@ function createCircle({ border, position, ...rest }: XCircleOptions): XCircle {
 }
 
 function createStar({ border, position, ...rest }: XStarOptions): XStar {
-  console.log(border, ShapeUtils.toXShapeOptions(border));
   return new XStar({
     ...ShapeUtils.toXShapeOptions(border),
     ...position,

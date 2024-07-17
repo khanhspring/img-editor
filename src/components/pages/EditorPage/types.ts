@@ -1,13 +1,19 @@
 import { Canvas } from 'fabric';
 
-import { ImplementedShapeType } from '@/types/enums';
+import { ShapeType } from '@/types/enums';
 
 export interface EditorContextValue {
   canvas?: Canvas;
-  drawShape: (type: ImplementedShapeType, position: ShapeDrawPosition) => void;
+  drawShape: (type: ShapeType, position: ShapeDrawPosition) => void;
 }
 
 export interface ShapeDrawPosition {
   left: number;
   top: number;
+}
+
+export interface ShapeConfig {
+  type: ShapeType;
+  title: string;
+  icon: string;
 }

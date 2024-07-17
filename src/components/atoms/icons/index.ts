@@ -1,3 +1,16 @@
 export { default as CircleIcon } from './CircleIcon';
+export { default as HexagonIcon } from './HexagonIcon';
+export { default as PentagonIcon } from './PentagonIcon';
+export { default as Polygon7Icon } from './Polygon7Icon';
+export { default as Polygon8Icon } from './Polygon8Icon';
+export { default as Polygon9Icon } from './Polygon9Icon';
 export { default as SquareIcon } from './SquareIcon';
+export { default as Star5Icon } from './Star5Icon';
+export { default as Star10Icon } from './Star10Icon';
+export { default as Star11Icon } from './Star11Icon';
+export { default as Star12Icon } from './Star12Icon';
+export { default as Star13Icon } from './Star13Icon';
+export { default as Star15Icon } from './Star15Icon';
+export { default as Star19Icon } from './Star19Icon';
+export { default as Star20Icon } from './Star20Icon';
 export { default as TriangleIcon } from './TriangleIcon';

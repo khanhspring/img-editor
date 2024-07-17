@@ -42,8 +42,6 @@ export default class XRect<
       { x, y: y + h },
     ];
 
-    console.log(points);
-
     return points;
   }
 }

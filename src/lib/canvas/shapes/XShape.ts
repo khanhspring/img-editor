@@ -1,7 +1,9 @@
 import * as fabric from 'fabric';
+import { nanoid } from 'nanoid';
+
+import { XYR } from '@/types/common/editor';
 
 import { XObject } from './types';
-import { XYR } from '@/types/common/editor';
 
 export const xShapeDefaultValues: Partial<fabric.TClassProperties<XShape>> = {
   borderRadius: 0,
@@ -9,6 +11,7 @@ export const xShapeDefaultValues: Partial<fabric.TClassProperties<XShape>> = {
 };
 
 export interface UniqueXShapeProps {
+  id?: string;
   borderRadius?: number;
   rotateAngle?: number;
 }
@@ -25,6 +28,8 @@ export default class XShape<
 {
   static type = 'XShape';
 
+  declare id: string;
+
   declare borderRadius: number;
 
   declare rotateAngle: number;
@@ -40,6 +45,7 @@ export default class XShape<
 
   static cacheProperties = [
     ...fabric.FabricObject.cacheProperties,
+    'id',
     'borderRadius',
     'rotateAngle',
   ];
@@ -47,14 +53,18 @@ export default class XShape<
   constructor(
     points: XYR[] = [],
     {
+      id,
       borderRadius = XShape.ownDefaults.borderRadius!,
       rotateAngle = XShape.ownDefaults.rotateAngle!,
       ...options
     }: Props = {} as Props,
   ) {
     super(XShape.rotatePoints(points, rotateAngle), options);
+    this.id = id || nanoid();
     this.borderRadius = borderRadius;
     this.rotateAngle = rotateAngle;
+    this.noScaleCache = false;
+    this.strokeUniform = true;
   }
 
   public _render(ctx: CanvasRenderingContext2D) {

@@ -1,4 +1,4 @@
-export default function SquareIcon({ ...rest }) {
+export default function CircleIcon({ ...rest }) {
   return (
     <svg
       width="584"
@@ -9,10 +9,12 @@ export default function SquareIcon({ ...rest }) {
       {...rest}
     >
       <path
-        d="M577 294C577 452.551 449.356 581 292 581C134.644 581 7 452.551 7 294C7 135.449 134.644 7 292 7C449.356 7 577 135.449 577 294Z"
-        fill="#BC7AFF"
+        d="M584 294C584 456.372 453.267 588 292 588C130.733 588 0 456.372 0 294C0 131.628 130.733 0 292 0C453.267 0 584 131.628 584 294Z"
+        fill="#8D83FF"
+      />
+      <path
+        d="M584 294C584 456.372 453.267 588 292 588C130.733 588 0 456.372 0 294C0 131.628 130.733 0 292 0C453.267 0 584 131.628 584 294Z"
         stroke="#26103D"
-        stroke-width="14"
       />
     </svg>
   );

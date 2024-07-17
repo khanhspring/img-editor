@@ -1,4 +1,4 @@
-import { XYR } from "@/types/common/editor";
+import { XYR } from '@/types/common/editor';
 
 export interface XObject {}
 
@@ -9,7 +9,7 @@ export interface XShapeBorderOptions {
   radius?: number;
 }
 
-export type ShapeType =
+export type XShapeType =
   | 'rect'
   | 'triangle'
   | 'circle'
@@ -17,41 +17,50 @@ export type ShapeType =
   | 'star'
   | 'free';
 
-export interface XShapeBaseOptions<T extends ShapeType> {
-  type: T;
+export interface XShapeBaseOptions {
+  id: string;
+  type: XShapeType;
   fill?: string;
   border?: XShapeBorderOptions;
   position: {
     left: number;
     top: number;
   };
+  scaleX?: number;
+  scaleY?: number;
 }
 
-export interface XRectOptions extends XShapeBaseOptions<'rect'> {
+export interface XRectOptions extends XShapeBaseOptions {
+  type: 'rect';
   width: number;
   height: number;
 }
 
-export interface XTriangleOptions extends XShapeBaseOptions<'triangle'> {
+export interface XTriangleOptions extends XShapeBaseOptions {
+  type: 'triangle';
   width: number;
   height: number;
 }
 
-export interface XCircleOptions extends XShapeBaseOptions<'circle'> {
+export interface XCircleOptions extends XShapeBaseOptions {
+  type: 'circle';
   radius: number;
 }
 
-export interface XPolygonOptions extends XShapeBaseOptions<'polygon'> {
+export interface XPolygonOptions extends XShapeBaseOptions {
+  type: 'polygon';
   sides: number;
-  size: number;
+  width: number;
 }
 
-export interface XStarOptions extends XShapeBaseOptions<'star'> {
-  outerRadius: number;
-  innerRadius: number;
+export interface XStarOptions extends XShapeBaseOptions {
+  type: 'star';
+  width: number;
+  ratio: number;
   sides: number;
 }
-export interface XFreeShapeOptions extends XShapeBaseOptions<'free'> {
+export interface XFreeShapeOptions extends XShapeBaseOptions {
+  type: 'free';
   points: XYR[];
   rotateAngle?: number;
 }
