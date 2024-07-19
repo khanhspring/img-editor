@@ -1,4 +1,4 @@
-import { ShapeConfig } from './types';
+import { ShapeConfig } from '../types';
 
 export const shapes: ShapeConfig[] = [
   {

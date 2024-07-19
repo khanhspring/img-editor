@@ -8,7 +8,6 @@ export default function useCanvas() {
 
   useEffect(() => {
     if (!canvasRef.current || !containerRef.current) return;
-    console.time('init');
     const initCanvas = new fabric.Canvas(canvasRef.current, {
       controlsAboveOverlay: true,
       preserveObjectStacking: true,
@@ -45,7 +44,19 @@ export default function useCanvas() {
     initCanvas.clipPath = initialWorkspace;
     setCanvas(initCanvas);
 
-    console.timeEnd('init');
+    initCanvas.on('mouse:dblclick', (e) => {
+      if (e.target?.type === 'group' && e.subTargets && e.subTargets.length) {
+        const group = e.target;
+        group.set('interactive', true);
+        const child = e.subTargets[0];
+        initCanvas.setActiveObject(child);
+        initCanvas.renderAll();
+        child.on('deselected', () => {
+          group.set('interactive', false);
+        });
+      }
+    });
+
     return () => {
       initCanvas.dispose();
     };

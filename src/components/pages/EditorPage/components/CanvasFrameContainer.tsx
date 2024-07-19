@@ -11,7 +11,7 @@ type Props = {
 const CanvasFrameContainer = forwardRef<HTMLDivElement, Props>((props, ref) => {
   const { children } = props;
 
-  const { canvas, drawShape } = useEditorContext();
+  const { canvas, drawShape, addImage } = useEditorContext();
 
   const allowDrop = (e: DragEvent) => {
     e.preventDefault();
@@ -29,9 +29,17 @@ const CanvasFrameContainer = forwardRef<HTMLDivElement, Props>((props, ref) => {
 
     const left = (scenePoint?.x || 0) - position.x;
     const top = (scenePoint?.y || 0) - position.y;
-    const type = e.dataTransfer.getData('shape-type') as ShapeType;
+    const category = e.dataTransfer.getData('category');
 
-    drawShape(type, { top, left });
+    if (category === 'shape') {
+      const type = e.dataTransfer.getData('shape-type') as ShapeType;
+      drawShape(type, { top, left });
+      return;
+    }
+    // const textId = e.dataTransfer.getData('text-id');
+    // drawText(textId, { top, left });
+
+    addImage('123', { top, left });
   };
   return (
     <div

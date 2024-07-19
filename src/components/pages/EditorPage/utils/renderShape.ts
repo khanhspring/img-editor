@@ -1,9 +1,10 @@
-import createShapeObject from '@/lib/canvas/shapes/createShapeObject';
-import { XShapeBaseOptions } from '@/lib/canvas/shapes/types';
+import { nanoid } from 'nanoid';
+
+import createShapeObject from '@/lib/canvas/shape/createShapeObject';
+import { XShapeBaseOptions } from '@/lib/canvas/shape/types';
 import { ShapeType } from '@/types/enums';
 
-import { ShapeDrawPosition } from '../types';
-import { nanoid } from 'nanoid';
+import { Position } from '../types';
 
 const defaultProps: Omit<XShapeBaseOptions, 'type' | 'position' | 'id'> = {
   fill: '#8D83FF',
@@ -16,7 +17,7 @@ const defaultProps: Omit<XShapeBaseOptions, 'type' | 'position' | 'id'> = {
 
 export const SHAPE_SIZE = 160;
 
-function renderPolygon(id: string, sides: number, position: ShapeDrawPosition) {
+function renderPolygon(id: string, sides: number, position: Position) {
   return createShapeObject({
     id,
     type: 'polygon',
@@ -27,7 +28,12 @@ function renderPolygon(id: string, sides: number, position: ShapeDrawPosition) {
   });
 }
 
-function renderStar(id: string, sides: number, ratio: number, position: ShapeDrawPosition) {
+function renderStar(
+  id: string,
+  sides: number,
+  ratio: number,
+  position: Position,
+) {
   return createShapeObject({
     id,
     type: 'star',
@@ -39,7 +45,7 @@ function renderStar(id: string, sides: number, ratio: number, position: ShapeDra
   });
 }
 
-export function renderShape(type: ShapeType, position: ShapeDrawPosition) {
+export function renderShape(type: ShapeType, position: Position) {
   const id = nanoid();
   switch (type) {
     case 'square':

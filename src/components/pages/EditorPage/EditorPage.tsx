@@ -5,6 +5,7 @@ import CanvasFrameContainer from './components/CanvasFrameContainer';
 import EditorProvider from './components/EditorContextProvider';
 import ShapePanel from './components/ShapePanel';
 import SideMenu from './components/SideMenu';
+import TextPanel from './components/TextPanel';
 import useCanvas from './hooks/useCanvas';
 
 const EditorPage = () => {
@@ -16,6 +17,7 @@ const EditorPage = () => {
         <aside className="grid grid-cols-[80px_1fr]">
           <SideMenu />
           <div>
+            <TextPanel />
             <ShapePanel />
           </div>
         </aside>
