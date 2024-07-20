@@ -57,6 +57,11 @@ export default function useCanvas() {
       }
     });
 
+    fabric.util.requestAnimFrame(function render() {
+      initCanvas.renderAll();
+      fabric.util.requestAnimFrame(render);
+    });
+
     return () => {
       initCanvas.dispose();
     };

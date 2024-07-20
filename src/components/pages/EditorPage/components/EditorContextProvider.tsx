@@ -1,5 +1,6 @@
 import { ReactNode, useCallback, useMemo } from 'react';
 import { Canvas } from 'fabric';
+import * as fabric from 'fabric';
 
 import { ShapeType } from '@/types/enums';
 
